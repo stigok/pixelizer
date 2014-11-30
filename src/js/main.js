@@ -53,12 +53,13 @@ function drawData() {
     console.log("%i items painted", i);
 }
 
-function fillArea(color, x1, y1, x2, y2) {
-    ctx.fillStyle = colorToRGBA(color);
+function fillArea(c, x1, y1, x2, y2) {
+    ctx.fillStyle = "rgb(" + c.R + "," + c.G + "," + c.B + ")";
     ctx.fillRect(x1, y1, x2, y2);
 }
 
 function colorToRGBA(c) {
     var a = (c.A / 255);
-    return "rgba(" + c.R + "," + c.G + "," + c.B + "," + a + ")";
+    // return "rgba(" + c.R + "," + c.G + "," + c.B + "," + a + ")";
+    return "rgba(" + c.R + "," + c.G + "," + c.B + "," + "1.0)";
 }

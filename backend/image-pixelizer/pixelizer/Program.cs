@@ -29,6 +29,7 @@ namespace pixelizer
                 w = ii.Width,
                 h = ii.Height,
                 s = skip,
+                r = ii.Width / skip,
                 items = px.GetPixlz()
             };
 
