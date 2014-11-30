@@ -29,23 +29,30 @@ namespace pixelizer
                 w = ii.Width,
                 h = ii.Height,
                 s = skip,
-                r = ii.Width / skip,
-                items = (from p in px.GetPixlz()
-                         select new
-                         {
-                             x = p.X,
-                             y = p.Y,
-                             c = string.Format("({0},{1},{2},{3})", p.Color.R, p.Color.G, p.Color.B, (double)p.Color.A / 255d)
-                         })
+                p = px.GetPixlz().Select(x => ShortHex(x.Color))
             };
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             File.WriteAllText(outfile, serializer.Serialize(obj));
+        }
 
-            //System.Diagnostics.Process.Start(outfile);
+        private static string ColorToHexString(System.Drawing.Color c)
+        {
+            return c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+        }
 
-            Console.WriteLine(ii.ToString());
-            //Console.ReadKey();
+        private static string ShortHex(System.Drawing.Color c)
+        {
+            var r = c.R.ToString("X2");
+            var g = c.G.ToString("X2");
+            var b = c.B.ToString("X2");
+
+            if (r[0] == r[1] && g[0] == g[1] && b[0] == b[1])
+            {
+                return string.Concat(r[0], g[0], b[0]);
+            }
+
+            return r + g + b;
         }
     }
 }

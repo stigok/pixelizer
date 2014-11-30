@@ -1,4 +1,4 @@
-var canvas, ctx, zoom, pixlz;
+var canvas, ctx, zoom, pxz;
 
 $(function() {
 
@@ -15,7 +15,7 @@ $(function() {
 });
 
 function handleImage(data) {
-    pixlz = data;
+    pxz = data;
 
     console.time("drawData");
     drawData();
@@ -23,18 +23,21 @@ function handleImage(data) {
 }
 
 function drawData() {
-    canvas.width = pixlz.w;
-    canvas.height = pixlz.h;
+    var x = 0, y = 0;
+    canvas.width = pxz.w;
+    canvas.height = pxz.h;
 
-    var p;
-    var y = 0;
-    for (var i = 0; i < pixlz.items.length; i++) {
-        p = pixlz.items[i];
-        ctx.fillStyle = "rgba"+p.c;
-        ctx.fillRect(p.x, p.y, p.x + pixlz.s, p.y + pixlz.s);
+    for (var i = 0; i < pxz.p.length; i++) {
+        if (i > 0 && x === pxz.w / pxz.s) {
+            x = 0;
+            y++;
+        }
 
-        if (i > 0 && i % pixlz.s === 0) y++;
+        ctx.fillStyle = '#' + pxz.p[i];
+        ctx.fillRect(x * pxz.s, y * pxz.s, pxz.s, pxz.s);
+        x++;
     }
 
     console.log("%i items painted", i);
+    console.log("%i kbytes", i / 1024);
 }
