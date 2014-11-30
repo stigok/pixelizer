@@ -30,7 +30,13 @@ namespace pixelizer
                 h = ii.Height,
                 s = skip,
                 r = ii.Width / skip,
-                items = px.GetPixlz()
+                items = (from p in px.GetPixlz()
+                         select new
+                         {
+                             x = p.X,
+                             y = p.Y,
+                             c = string.Format("({0},{1},{2},{3})", p.Color.R, p.Color.G, p.Color.B, (double)p.Color.A / 255d)
+                         })
             };
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
