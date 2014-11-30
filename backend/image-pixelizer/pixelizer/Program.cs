@@ -14,34 +14,27 @@ namespace pixelizer
     {
         static ushort skip = 8;
         static char separator = '^';
+        static UInt16[] versions = { 2, 4, 8, 12, 16, 20, 24, 28, 32, 80 };
 
         static void Main(string[] args)
         {
             var filename = @"C:\SVN\image-pixelizer\src\img\image.jpg";
-            var outfile = @"C:\SVN\image-pixelizer\src\js\testimage.pxlz";
-            var ii = new ImageInfo(filename);
-            var px = new Pixelizer(filename, skip);
-            var obj = new
-            {
-                w = ii.Width,
-                h = ii.Height,
-                s = skip,
-                p = px.GetPixlz().Select(x => ShortHex(x.Color))
-            };
+            var outfile = @"C:\SVN\image-pixelizer\src\img\testimage.xz";
 
-            using (var file = File.CreateText(outfile))
+            foreach (ushort s in versions)
             {
-                file.Write(ii.Width + "/" + skip + "=");
-                foreach (var item in px.GetPixlz().Select(x => ShortHex(x.Color)))
+                var ii = new ImageInfo(filename);
+                var px = new Pixelizer(filename, s);
+
+                using (var file = File.CreateText(outfile + s))
                 {
-                    file.Write(item + separator);
-                }
+                    file.Write(ii.Width + "x" + ii.Height + "/" + s + "=");
+                    foreach (var item in px.GetPixlz().Select(x => ShortHex(x.Color)))
+                    {
+                        file.Write(item + separator);
+                    }
+                } 
             }
-        }
-
-        private static string ColorToHexString(System.Drawing.Color c)
-        {
-            return c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
 
         private static string ShortHex(System.Drawing.Color c)

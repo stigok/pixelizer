@@ -2,29 +2,26 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
-    <script src="//code.jquery.com/jquery-2.1.1.js"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-
+	<title>Write pxlz to canvas</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.pixelizer.js"></script>
     <script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
 
-<table id="results">
-    <tr>
-    	<td></td>
-    	<td></td>
-    	<td></td>
-    	<td></td>
-    	<td></td>
-    </tr>
-</table>
-
-<div id="slider"></div>
-
-<canvas id="mainCanvas"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="80"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="32"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="28"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="24"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="20"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="16"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="12"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="8"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="4"></canvas>
+    <canvas xz-src="img/testimage.xz" xz-skip="2"></canvas>
 
 </body>
 </html>
