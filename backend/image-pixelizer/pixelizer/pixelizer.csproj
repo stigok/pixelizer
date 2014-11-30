@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ColorPoint.cs" />
     <Compile Include="ImageInfo.cs" />
+    <Compile Include="lz-string.cs" />
     <Compile Include="Pixelizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,17 +12,14 @@ namespace pixelizer
 {
     class Program
     {
+        static ushort skip = 8;
+        static char separator = '^';
+
         static void Main(string[] args)
         {
-            string random = Guid.NewGuid().ToString().Replace("-", "");
-            ushort skip = 10;
-
-            //var formats = new Dictionary<string, string>();
-
             var filename = @"C:\SVN\image-pixelizer\src\img\image.jpg";
-            var outfile = string.Format(@"C:\SVN\image-pixelizer\src\js\testimage.json", random);
+            var outfile = @"C:\SVN\image-pixelizer\src\js\testimage.pxlz";
             var ii = new ImageInfo(filename);
-
             var px = new Pixelizer(filename, skip);
             var obj = new
             {
@@ -32,8 +29,14 @@ namespace pixelizer
                 p = px.GetPixlz().Select(x => ShortHex(x.Color))
             };
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            File.WriteAllText(outfile, serializer.Serialize(obj));
+            using (var file = File.CreateText(outfile))
+            {
+                file.Write(ii.Width + "/" + skip + "=");
+                foreach (var item in px.GetPixlz().Select(x => ShortHex(x.Color)))
+                {
+                    file.Write(item + separator);
+                }
+            }
         }
 
         private static string ColorToHexString(System.Drawing.Color c)
