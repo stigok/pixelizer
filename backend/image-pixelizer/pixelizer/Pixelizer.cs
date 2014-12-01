@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,27 +13,35 @@ namespace pixelizer
     {
         ImageInfo _imageInfo;
         Bitmap _image;
-        int _skip;
 
-        public Pixelizer(string filepath, UInt16 skip = 5)
+        public Pixelizer(string filepath)
         {
             _imageInfo = new ImageInfo(filepath);
             _image = new Bitmap(filepath);
-            _skip = Convert.ToInt32(skip);
         }
 
-        public List<ColorPoint> GetPixlz()
+        public void Pixelize(string outfile, int dotSize)
+        {
+            using (var file = File.CreateText(outfile + dotSize))
+            {
+                string pixels = string.Join("^", GetPixels(dotSize).Select(x => ShortHex(x.Color)));
+                string data = string.Format("{0}*{1}/{2}={3}", _imageInfo.Width, _imageInfo.Height, dotSize, pixels);
+                file.Write(data);
+            } 
+        }
+
+        public List<ColorPoint> GetPixels(int dotSize)
         {
             var points = new List<ColorPoint>();
 
-            int w = _imageInfo.Width - 1;
-            int h = _imageInfo.Height - 1;
+            int cols = (int)Math.Ceiling((double)_imageInfo.Width / dotSize);
+            int rows = (int)Math.Ceiling((double)_imageInfo.Height / dotSize);
 
-            for (int y = 0; y < h; y += _skip)
+            for (int y = 0; y < rows; y++)
             {
-                for (int x = 0; x < w; x += _skip)
+                for (int x = 0; x < cols; x++)
                 {
-                    points.Add(new ColorPoint(x, y, GetPixelColorAt(x, y)));
+                    points.Add(new ColorPoint(x, y, GetPixelColorAt(x * dotSize, y * dotSize)));
                 }
             }
 
@@ -45,12 +54,18 @@ namespace pixelizer
             return _image.GetPixel(x, y);
         }
 
-        private void ClearMetaData()
+        private static string ShortHex(System.Drawing.Color c)
         {
-            foreach (int pid in _image.PropertyIdList)
+            var r = c.R.ToString("X2");
+            var g = c.G.ToString("X2");
+            var b = c.B.ToString("X2");
+
+            if (r[0] == r[1] && g[0] == g[1] && b[0] == b[1])
             {
-                _image.RemovePropertyItem(pid);
+                return string.Concat(r[0], g[0], b[0]);
             }
+
+            return r + g + b;
         }
     }
 }

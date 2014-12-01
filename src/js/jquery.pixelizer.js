@@ -18,8 +18,6 @@ $.widget("stigok.pixelizer", {
 
     _handleImage : function(data) {
         var args = data.split(/[x/=]+/);
-        console.log(args);
-
         console.time("drawData");
         this._drawData(+args[0], +args[1], +args[2], args[3].split('^'));
         console.timeEnd("drawData");
