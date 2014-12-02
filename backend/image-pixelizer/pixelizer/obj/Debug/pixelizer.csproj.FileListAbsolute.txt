@@ -1,6 +1,5 @@
 C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\bin\Debug\pixelizer.exe.config
 C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\bin\Debug\pixelizer.exe
 C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\bin\Debug\pixelizer.pdb
-C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\obj\Debug\pixelizer.csprojResolveAssemblyReference.cache
 C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\obj\Debug\pixelizer.exe
 C:\SVN\image-pixelizer\backend\image-pixelizer\pixelizer\obj\Debug\pixelizer.pdb

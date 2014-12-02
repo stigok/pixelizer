@@ -41,7 +41,7 @@ namespace pixelizer
             {
                 for (int x = 0; x < cols; x++)
                 {
-                    points.Add(new ColorPoint(x, y, GetPixelColorAt(x * dotSize, y * dotSize)));
+                    points.Add(new ColorPoint(x, y, GetDotAverageColor(x * dotSize, y * dotSize, dotSize)));
                 }
             }
 
@@ -49,9 +49,24 @@ namespace pixelizer
         }
 
         // Should do an average of the colors in the grid instead
-        private Color GetPixelColorAt(int x, int y)
+        private Color GetDotAverageColor(int x, int y, int dotSize)
         {
-            return _image.GetPixel(x, y);
+            var pixels = new List<Color>();
+
+            for (; y < y + dotSize; y++)
+            {
+                for (; x < x + dotSize; x++)
+                {
+                    // Make sure inside bounds
+                    if (y >= _imageInfo.Height - 1) break;
+                    if (x >= _imageInfo.Width - 1) break;
+
+                    pixels.Add(_image.GetPixel(x, y));
+                }
+            }
+
+            int average = pixels.Sum(color => color.ToArgb()) / pixels.Count;
+            return Color.FromArgb(average);
         }
 
         private static string ShortHex(System.Drawing.Color c)
