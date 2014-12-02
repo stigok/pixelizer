@@ -2,16 +2,12 @@
   "name": "image-pixelizer",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "",
   "author": "",
-  "license": "ISC",
+  "license": "",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-less": "^0.12.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-exec": "^0.4.6"
+    "grunt-exec": "^0.4.6",
+    "http-server": "^0.7.3"
   }
 }
